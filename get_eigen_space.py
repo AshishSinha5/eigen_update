@@ -37,7 +37,7 @@ def svd_update(U, sigma, V, Ai):
 
 
 class get_eigen_space:
-    def __init__(self, data: dict, eps=0.3, num_train=1):
+    def __init__(self, data: dict, eps=0.3, num_train=2):
         self.data = data
         self.eps = eps
         self.img_array = []

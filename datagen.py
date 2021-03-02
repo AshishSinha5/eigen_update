@@ -4,7 +4,7 @@ import numpy as np
 import pickle
 
 
-def get_face94_male(file_path, img_per_class=2):
+def get_face94_male(file_path, img_per_class=3):
     data = {}
     for i, dirs in enumerate(os.listdir(file_path)):
         img_path = file_path + dirs + '/'
