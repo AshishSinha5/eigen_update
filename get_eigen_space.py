@@ -1,11 +1,11 @@
 import numpy as np
 import numpy.linalg as la
+import pickle
 import timeit
 
 
 def svd_update(U, sigma, V, Ai):
     """
-
     :param U:  previous set of left singular vectors
     :param sigma: previous diagonal matrix containing singular values
     :param V: previous set of right singular vectors
@@ -37,11 +37,12 @@ def svd_update(U, sigma, V, Ai):
 
 
 class get_eigen_space:
-    def __init__(self, data: dict, eps, num_train):
+    def __init__(self, data: dict, eps=0.3, num_train=1):
         self.data = data
         self.eps = eps
         self.img_array = []
         self.num_train = num_train
+        self.weights = None
 
     def gen_images(self):
         """
@@ -49,9 +50,9 @@ class get_eigen_space:
         """
         for k, v in self.data.items():
             for i, imgs in enumerate(v):
-                self.img_array.append(imgs)
-                if i > self.num_train:
+                if i == self.num_train:
                     break
+                self.img_array.append(imgs)
         self.img_array = np.squeeze(np.array(self.img_array))
         self.img_array = np.reshape(self.img_array, (self.img_array.shape[0], -1))
         self.img_array = np.transpose(self.img_array)
@@ -65,7 +66,6 @@ class get_eigen_space:
         # print('number of Images - ', numImages)
         A1 = self.img_array[:, 0]
         A1 = np.reshape(A1, (len(A1), 1))
-        print(A1)
         U = A1 / la.norm(A1)
         V = np.ones((1, 1))
         sigma = [la.norm(A1)]
@@ -83,4 +83,8 @@ class get_eigen_space:
             _V = np.transpose(_V_trans)
             # print(_V)
             V = _V[:, :j + 1]
-        return U, sigma, V
+        self.weights = U.transpose() @ self.img_array
+        labels = np.ndarray.flatten(np.array([[i]*self.num_train for i in range(numImages)]))
+
+        return U, sigma, V, list(zip(labels, self.weights.transpose()))
+
