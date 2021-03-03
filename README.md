@@ -1,6 +1,6 @@
 # Iterative Eigenspace Update Algorithm for Image Recognition
 
-Implementation of variant of Adaptive Eigenspace computaion algorithm proposed by Chandrashekharan et al. [[1]](#1) and consecutively using it for image recognition (Turk and Pentland)[[2]](#2).
+Implementation of variant of Adaptive Eigenspace updation algorithm proposed by Chandrashekharan et al. [[1]](#1) and consecutively using it for image recognition (Turk and Pentland)[[2]](#2).
 
 
 ## Dataset
