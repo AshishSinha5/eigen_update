@@ -1,7 +1,5 @@
 import numpy as np
 import numpy.linalg as la
-import pickle
-import timeit
 
 
 def svd_update(U, sigma, V, Ai):
